@@ -11,8 +11,6 @@ public class CustomerLoginPage extends BasePage {
 
     public CustomerLoginPage(WebDriver driver) {
         super(driver);
-        driver.get(BASE_URL);
-        new HomePage(driver).customerLogin(this);
     }
 
     @Step("Выбор пользователя {user}")
@@ -20,7 +18,6 @@ public class CustomerLoginPage extends BasePage {
         waitVisibility(userSelector);
         Select userSelect = new Select(driver.findElement(userSelector));
         userSelect.selectByVisibleText(user);
-
         return this;
     }
 

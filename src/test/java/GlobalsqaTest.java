@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CustomerLoginPage;
+import pages.HomePage;
 //import org.junit.jupiter.api.parallel.Resources;
 
 public class GlobalsqaTest {
@@ -13,8 +14,11 @@ public class GlobalsqaTest {
 
         WebDriver driver = new ChromeDriver();
 
-        new CustomerLoginPage(driver)
-                .loginAs("Harry Potter");
+        new HomePage(driver)
+                .customerLogin()
+                .loginAs("Harry Potter")
+                .refillDepositForAmount(100)
+                .withdrawForAmount(100);
 
 //        driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
 

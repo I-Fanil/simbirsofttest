@@ -16,10 +16,11 @@ public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         super(driver);
+        driver.get(BASE_URL);
     }
 
-    public CustomerLoginPage customerLogin(CustomerLoginPage page) {
+    public CustomerLoginPage customerLogin() {
         waitAndClick(customerLoginButton);
-        return page;
+        return new CustomerLoginPage(driver);
     }
 }
