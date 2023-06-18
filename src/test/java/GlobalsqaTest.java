@@ -39,9 +39,6 @@ public class GlobalsqaTest {
         Assertions.assertTrue(transactionsPage.isTransactionsPresentOnPage());
         transactionsPage.getTableDataAndWriteCSVFile();
 
-//        driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
-
         driver.quit();
-//        driver.close();
     }
 }

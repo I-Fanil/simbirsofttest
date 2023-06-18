@@ -31,13 +31,4 @@ public abstract class BasePage {
     protected WebElement waitVisibility(By locator){
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
-
-//    @Step("Переключение на другую вкладку")
-//    public void switchToAnotherTab(){
-//        driver.switchTo().window(
-//                driver.getWindowHandles().stream()
-//                        .filter(h -> !h.equals(driver.getWindowHandle()))
-//                        .findFirst().get()
-//        );
-//    }
 }

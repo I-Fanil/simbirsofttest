@@ -4,16 +4,14 @@ import com.opencsv.CSVWriter;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileHelper {
     @Step("Формирование файла формата csv")
     @Attachment
-    public static File writeCSVFile(String filePath, List<String[]> data) {
+    public static byte[] writeCSVFile(String filePath, List<String[]> data) {
         File file = new File(filePath);
         try {
             FileWriter outputFile = new FileWriter(file);
@@ -27,6 +25,15 @@ public class FileHelper {
         catch (IOException e) {
             e.printStackTrace();
         }
-        return file;
+        byte[] bytes = new byte[(int) file.length()];
+        try(FileInputStream fis = new FileInputStream(file)) {
+            fis.read(bytes);
+            return bytes;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
