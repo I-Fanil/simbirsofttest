@@ -1,4 +1,5 @@
 import com.google.common.io.Resources;
+import helpers.Calculation;
 import helpers.DateHelper;
 import helpers.FileHelper;
 import org.checkerframework.checker.units.qual.C;
@@ -21,20 +22,20 @@ public class GlobalsqaTest {
 
         WebDriver driver = new ChromeDriver();
 
+        int today = DateHelper.getCurrentDayNumber();
+        int amount = Calculation.calculateFibonacciNumber(today + 1);
+
         HomePage homePage = new HomePage(driver);
         CustomerLoginPage customerLoginPage= homePage.openCustomerLoginPage();
         CustomerAccountPage customerAccountPage = customerLoginPage
                 .loginAs("Harry Potter")
-                .refillDepositForAmount(100)
-                .withdrawForAmount(100);
+                .refillDepositForAmount(amount)
+                .withdrawForAmount(amount);
         Assertions.assertTrue(customerAccountPage.isBalanceEqualsToValue(0));
         TransactionsPage transactionsPage = customerAccountPage
                 .openTransactionsPage();
         Assertions.assertTrue(transactionsPage.isTransactionsPresentOnPage());
         transactionsPage.getTableDataAndWriteCSVFile();
-
-//        FileHelper.writeCSVFile("target/1.csv", );
-
 
 //        driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
 

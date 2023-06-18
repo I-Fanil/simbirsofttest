@@ -16,7 +16,7 @@ public class TransactionsPage extends BasePage {
 //    private By dateEndRow = By.cssSelector("input#end");
     private By debitTransaction = By.xpath("//tr/td[normalize-space()='Debit']");
     private By creditTransaction = By.xpath("//tr/td[normalize-space()='Credit']");
-    private By tableTransaction = By.tagName("table");
+    private By transactionTable = By.tagName("table");
 
     public TransactionsPage(WebDriver driver) {
         super(driver);
@@ -46,10 +46,10 @@ public class TransactionsPage extends BasePage {
 
     @Step("Получение данных из таблицы транзакций и формирование файла формата csv")
     public TransactionsPage getTableDataAndWriteCSVFile() {
-        WebElement table = driver.findElement(tableTransaction);
+        WebElement table = driver.findElement(transactionTable);
         List<String[]> tableData = TableHelper.getTableData(table);
         for (String[] rowData : tableData) {
-            String newDate = DateHelper.convertDate(rowData[0]);
+            String newDate = "\"" + DateHelper.convertDate(rowData[0]) + "\"";
             rowData[0] = newDate;
         }
         FileHelper.writeCSVFile("target/1.csv", tableData);
