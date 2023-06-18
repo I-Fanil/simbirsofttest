@@ -1,6 +1,7 @@
 package helpers;
 
 import com.opencsv.CSVWriter;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 
 import java.io.File;
@@ -11,7 +12,8 @@ import java.util.List;
 
 public class FileHelper {
     @Step("Формирование файла формата csv")
-    public static void writeCSVFile(String filePath, List<String[]> data) {
+    @Attachment
+    public static File writeCSVFile(String filePath, List<String[]> data) {
         File file = new File(filePath);
         try {
             FileWriter outputFile = new FileWriter(file);
@@ -25,5 +27,6 @@ public class FileHelper {
         catch (IOException e) {
             e.printStackTrace();
         }
+        return file;
     }
 }

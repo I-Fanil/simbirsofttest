@@ -4,6 +4,7 @@ import helpers.DateHelper;
 import helpers.FileHelper;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +17,7 @@ import pages.TransactionsPage;
 public class GlobalsqaTest {
 
     @Test
+    @DisplayName("Тестовое задание")
     public void test1() {
         System.setProperty("webdriver.chrome.driver", Resources.getResource("chromedriver.exe").getPath());
 
