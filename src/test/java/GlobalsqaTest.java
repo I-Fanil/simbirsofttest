@@ -1,4 +1,6 @@
 import com.google.common.io.Resources;
+import helpers.DateHelper;
+import helpers.FileHelper;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,7 @@ public class GlobalsqaTest {
     public void test1() {
         System.setProperty("webdriver.chrome.driver", Resources.getResource("chromedriver.exe").getPath());
 
+
         WebDriver driver = new ChromeDriver();
 
         HomePage homePage = new HomePage(driver);
@@ -28,13 +31,14 @@ public class GlobalsqaTest {
         TransactionsPage transactionsPage = customerAccountPage
                 .openTransactionsPage();
         Assertions.assertTrue(transactionsPage.isTransactionsPresentOnPage());
-//                .clickBackButton()
-//                .openTransactionsPage();
-//                .clickOnDateStartRow()
-//                .clickBackButton();
+        transactionsPage.getTableDataAndWriteCSVFile();
+
+//        FileHelper.writeCSVFile("target/1.csv", );
+
 
 //        driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
 
-        driver.close();
+        driver.quit();
+//        driver.close();
     }
 }
