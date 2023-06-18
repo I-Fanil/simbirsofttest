@@ -3,11 +3,6 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class HomePage extends BasePage {
     private By homeButton = By.xpath("//button[normalize-space()='Home']");
@@ -19,7 +14,8 @@ public class HomePage extends BasePage {
         driver.get(BASE_URL);
     }
 
-    public CustomerLoginPage customerLogin() {
+    @Step("Открытие страницы логина клиента")
+    public CustomerLoginPage openCustomerLoginPage() {
         waitAndClick(customerLoginButton);
         return new CustomerLoginPage(driver);
     }

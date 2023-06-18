@@ -20,9 +20,21 @@ public class CustomerAccountPage extends BasePage {
         waitVisibility(depositButton);
     }
 
+    @Step("Открытие страницы транзакций")
+    public TransactionsPage openTransactionsPage() {
+        driver.findElement(transactionsButton).click();
+        return new TransactionsPage(driver);
+    }
+
     @Step("Выбор функции пополнения счета")
     public CustomerAccountPage chooseRefillFunction() {
         driver.findElement(depositButton).click();
+        return this;
+    }
+
+    @Step("Выбор функции списания со счета")
+    public CustomerAccountPage chooseWithdrawlFunction() {
+        driver.findElement(withdrawlButton).click();
         return this;
     }
 
@@ -52,12 +64,7 @@ public class CustomerAccountPage extends BasePage {
         return this;
     }
 
-    @Step("Выбор функции списания со счета")
-    public CustomerAccountPage chooseWithdrawlFunction() {
-        driver.findElement(withdrawlButton).click();
-        return this;
-    }
-
+    @Step("Пополнение счета на сумму: {amount}")
     public CustomerAccountPage refillDepositForAmount(int amount) {
         chooseRefillFunction();
         enterDepositAmount(amount);
@@ -66,11 +73,17 @@ public class CustomerAccountPage extends BasePage {
         return this;
     }
 
+    @Step("Списание со счета на сумму: {amount}")
     public CustomerAccountPage withdrawForAmount(int amount) {
         chooseWithdrawlFunction();
         enterWithdrawlAmount(amount);
         clickApply();
         waitVisibility(successTransact);
         return this;
+    }
+
+    @Step("Проверка, что баланс равен: {value}")
+    public boolean isBalanceEqualsToValue(int value) {
+        return driver.findElement(balanceValue).getText().equals(Integer.toString(value));
     }
 }
