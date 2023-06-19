@@ -1,29 +1,37 @@
 import com.google.common.io.Resources;
 import helpers.Calculation;
 import helpers.DateHelper;
-import helpers.FileHelper;
-import org.checkerframework.checker.units.qual.C;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CustomerAccountPage;
 import pages.CustomerLoginPage;
 import pages.HomePage;
 import pages.TransactionsPage;
-//import org.junit.jupiter.api.parallel.Resources;
 
 public class GlobalsqaTest {
+    private WebDriver driver;
+
+    @BeforeAll
+    public static void setUp() {
+        System.setProperty("webdriver.chrome.driver", Resources.getResource("chromedriver.exe").getPath());
+    }
+
+    @BeforeEach
+    public void setUpThis() {
+        driver = new ChromeDriver();
+    }
+
+    @AfterEach
+    public void close() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 
     @Test
     @DisplayName("Тестовое задание")
-    public void test1() {
-        System.setProperty("webdriver.chrome.driver", Resources.getResource("chromedriver.exe").getPath());
-
-
-        WebDriver driver = new ChromeDriver();
-
+    public void test() {
         int today = DateHelper.getCurrentDayNumber();
         int amount = Calculation.calculateFibonacciNumber(today + 1);
 
@@ -38,7 +46,5 @@ public class GlobalsqaTest {
                 .openTransactionsPage();
         Assertions.assertTrue(transactionsPage.isTransactionsPresentOnPage());
         transactionsPage.getTableDataAndWriteCSVFile();
-
-        driver.quit();
     }
 }
