@@ -2,12 +2,18 @@ import com.google.common.io.Resources;
 import helpers.Calculation;
 import helpers.DateHelper;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import pages.CustomerAccountPage;
 import pages.CustomerLoginPage;
 import pages.HomePage;
 import pages.TransactionsPage;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class GlobalsqaTest {
     private WebDriver driver;
@@ -18,8 +24,13 @@ public class GlobalsqaTest {
     }
 
     @BeforeEach
-    public void setUpThis() {
-        driver = new ChromeDriver();
+    public void setUpThis() throws MalformedURLException {
+        System.out.println("Browser opened");
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setPlatform(Platform.WIN10);
+        capabilities.setBrowserName("chrome");
+
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
     }
 
     @AfterEach
@@ -27,6 +38,7 @@ public class GlobalsqaTest {
         if (driver != null) {
             driver.quit();
         }
+        System.out.println("Browser closed");
     }
 
     @Test
